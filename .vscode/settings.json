@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.pdf": "code-text-binary",
+        "stm32f1xx_hal_conf.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}
