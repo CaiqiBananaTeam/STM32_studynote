@@ -109,7 +109,7 @@ int main(void)
     /* USER CODE END WHILE */
     
       KEY_Scan(a);
-      if(a[0]!=0){u1_printf(a);a[0]=0;}
+      if(a[0]!=0){u1_printf("(%c ,%c)\n",a[0],a[1]);a[0]=0;}
     /* USER CODE BEGIN 3 */
     
   }
