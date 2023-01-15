@@ -3,9 +3,7 @@
 
 #include "main.h"
 
-void KEY_Scan(void);
-
-
+void  KEY_Scan(char *ret);
 
 
 
