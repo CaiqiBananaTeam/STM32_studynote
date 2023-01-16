@@ -110,6 +110,8 @@ int main(void)
     
       KEY_Scan(a);
       if(a[0]!=0){u1_printf("(%c ,%c)\n",a[0],a[1]);a[0]=0;}
+
+      HAL_UART_Transmit(&huart1, "6666", 4, HAL_MAX_DELAY);
     /* USER CODE BEGIN 3 */
     
   }

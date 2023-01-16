@@ -113,13 +113,20 @@ void u1_printf(char* fmt, ...) {
   vsprintf((char*)buf, fmt, ap);
   va_end(ap);
   len = strlen((char*)buf);
-  HAL_UART_Transmit(&huart1, buf, len, HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, buf, len, HAL_MAX_DELAY);//这里的UART——transmit就类似于arduino中的printf
 }
 ```
 
 ### 需要补充一点冠以vsprintf的东西：
 
 ```C
-u1_printf("(%c ,%c)\n",a[0],a[1]);
+u1_printf("(%c ,%c)\n",a[0],a[1]);//他就类似于arduino中的printf
 //这里就是很重要的，这中多参数的填充，在上一段代码中，相当于，用fmt的格式，将ap里面的东西填到buf中，a[0],a[1]都会放到ap里面，所以，这种输出是可以的。一般来说，就算输入的参数有数字什么的，对应为int，他也会放在一个char的buf中，也就是自己内部转换了。
 ```
+### 蓝牙
+无需多言，就是最简单的uart通信，需要注意的是蓝牙AT指令设置，role和cmode很重要，而且，波特率需要与板子的设置为相同。
+主体函数还是：
+```C
+HAL_UART_Transmit(&huart1,buf,len,HAL_MAX_DELAY)
+```
+稍后再来看其他的transmit函数，有不同的功效。适用于不同的情况。
