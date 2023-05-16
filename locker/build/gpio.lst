@@ -1,0 +1,275 @@
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"gpio.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  16              		.align	1
+  17              		.global	MX_GPIO_Init
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	MX_GPIO_Init:
+  25              	.LFB65:
+  26              		.file 1 "Core/Src/gpio.c"
+   1:Core/Src/gpio.c **** /**
+   2:Core/Src/gpio.c ****   ******************************************************************************
+   3:Core/Src/gpio.c ****   * @file    gpio.c
+   4:Core/Src/gpio.c ****   * @brief   This file provides code for the configuration
+   5:Core/Src/gpio.c ****   *          of all used GPIO pins.
+   6:Core/Src/gpio.c ****   ******************************************************************************
+   7:Core/Src/gpio.c ****   * @attention
+   8:Core/Src/gpio.c ****   *
+   9:Core/Src/gpio.c ****   * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
+  10:Core/Src/gpio.c ****   * All rights reserved.</center></h2>
+  11:Core/Src/gpio.c ****   *
+  12:Core/Src/gpio.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Core/Src/gpio.c ****   * the "License"; You may not use this file except in compliance with the
+  14:Core/Src/gpio.c ****   * License. You may obtain a copy of the License at:
+  15:Core/Src/gpio.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Core/Src/gpio.c ****   *
+  17:Core/Src/gpio.c ****   ******************************************************************************
+  18:Core/Src/gpio.c ****   */
+  19:Core/Src/gpio.c **** 
+  20:Core/Src/gpio.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/gpio.c **** #include "gpio.h"
+  22:Core/Src/gpio.c **** 
+  23:Core/Src/gpio.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/gpio.c **** 
+  25:Core/Src/gpio.c **** /* USER CODE END 0 */
+  26:Core/Src/gpio.c **** 
+  27:Core/Src/gpio.c **** /*----------------------------------------------------------------------------*/
+  28:Core/Src/gpio.c **** /* Configure GPIO                                                             */
+  29:Core/Src/gpio.c **** /*----------------------------------------------------------------------------*/
+  30:Core/Src/gpio.c **** /* USER CODE BEGIN 1 */
+  31:Core/Src/gpio.c **** 
+  32:Core/Src/gpio.c **** /* USER CODE END 1 */
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 2
+
+
+  33:Core/Src/gpio.c **** 
+  34:Core/Src/gpio.c **** /** Configure pins as
+  35:Core/Src/gpio.c ****         * Analog
+  36:Core/Src/gpio.c ****         * Input
+  37:Core/Src/gpio.c ****         * Output
+  38:Core/Src/gpio.c ****         * EVENT_OUT
+  39:Core/Src/gpio.c ****         * EXTI
+  40:Core/Src/gpio.c **** */
+  41:Core/Src/gpio.c **** void MX_GPIO_Init(void)
+  42:Core/Src/gpio.c **** {
+  27              		.loc 1 42 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 32
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 20
+  34              		.cfi_offset 4, -20
+  35              		.cfi_offset 5, -16
+  36              		.cfi_offset 6, -12
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 89B0     		sub	sp, sp, #36
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 56
+  43:Core/Src/gpio.c **** 
+  44:Core/Src/gpio.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  42              		.loc 1 44 3 view .LVU1
+  43              		.loc 1 44 20 is_stmt 0 view .LVU2
+  44 0004 0024     		movs	r4, #0
+  45 0006 0494     		str	r4, [sp, #16]
+  46 0008 0594     		str	r4, [sp, #20]
+  47 000a 0694     		str	r4, [sp, #24]
+  48 000c 0794     		str	r4, [sp, #28]
+  45:Core/Src/gpio.c **** 
+  46:Core/Src/gpio.c ****   /* GPIO Ports Clock Enable */
+  47:Core/Src/gpio.c ****   __HAL_RCC_GPIOD_CLK_ENABLE();
+  49              		.loc 1 47 3 is_stmt 1 view .LVU3
+  50              	.LBB2:
+  51              		.loc 1 47 3 view .LVU4
+  52              		.loc 1 47 3 view .LVU5
+  53 000e 224B     		ldr	r3, .L3
+  54 0010 9A69     		ldr	r2, [r3, #24]
+  55 0012 42F02002 		orr	r2, r2, #32
+  56 0016 9A61     		str	r2, [r3, #24]
+  57              		.loc 1 47 3 view .LVU6
+  58 0018 9A69     		ldr	r2, [r3, #24]
+  59 001a 02F02002 		and	r2, r2, #32
+  60 001e 0192     		str	r2, [sp, #4]
+  61              		.loc 1 47 3 view .LVU7
+  62 0020 019A     		ldr	r2, [sp, #4]
+  63              	.LBE2:
+  64              		.loc 1 47 3 view .LVU8
+  48:Core/Src/gpio.c ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+  65              		.loc 1 48 3 view .LVU9
+  66              	.LBB3:
+  67              		.loc 1 48 3 view .LVU10
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 3
+
+
+  68              		.loc 1 48 3 view .LVU11
+  69 0022 9A69     		ldr	r2, [r3, #24]
+  70 0024 42F00402 		orr	r2, r2, #4
+  71 0028 9A61     		str	r2, [r3, #24]
+  72              		.loc 1 48 3 view .LVU12
+  73 002a 9A69     		ldr	r2, [r3, #24]
+  74 002c 02F00402 		and	r2, r2, #4
+  75 0030 0292     		str	r2, [sp, #8]
+  76              		.loc 1 48 3 view .LVU13
+  77 0032 029A     		ldr	r2, [sp, #8]
+  78              	.LBE3:
+  79              		.loc 1 48 3 view .LVU14
+  49:Core/Src/gpio.c ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+  80              		.loc 1 49 3 view .LVU15
+  81              	.LBB4:
+  82              		.loc 1 49 3 view .LVU16
+  83              		.loc 1 49 3 view .LVU17
+  84 0034 9A69     		ldr	r2, [r3, #24]
+  85 0036 42F00802 		orr	r2, r2, #8
+  86 003a 9A61     		str	r2, [r3, #24]
+  87              		.loc 1 49 3 view .LVU18
+  88 003c 9B69     		ldr	r3, [r3, #24]
+  89 003e 03F00803 		and	r3, r3, #8
+  90 0042 0393     		str	r3, [sp, #12]
+  91              		.loc 1 49 3 view .LVU19
+  92 0044 039B     		ldr	r3, [sp, #12]
+  93              	.LBE4:
+  94              		.loc 1 49 3 view .LVU20
+  50:Core/Src/gpio.c **** 
+  51:Core/Src/gpio.c ****   /*Configure GPIO pin Output Level */
+  52:Core/Src/gpio.c ****   HAL_GPIO_WritePin(GPIOB, dir_Pin|step_Pin|NRF_CE_Pin|GPIO_PIN_13
+  95              		.loc 1 52 3 view .LVU21
+  96 0046 154D     		ldr	r5, .L3+4
+  97 0048 2246     		mov	r2, r4
+  98 004a 43F62041 		movw	r1, #15392
+  99 004e 2846     		mov	r0, r5
+ 100 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 101              	.LVL0:
+  53:Core/Src/gpio.c ****                           |NRF_CS_Pin, GPIO_PIN_RESET);
+  54:Core/Src/gpio.c **** 
+  55:Core/Src/gpio.c ****   /*Configure GPIO pins : PBPin PBPin PB13 */
+  56:Core/Src/gpio.c ****   GPIO_InitStruct.Pin = dir_Pin|step_Pin|GPIO_PIN_13;
+ 102              		.loc 1 56 3 view .LVU22
+ 103              		.loc 1 56 23 is_stmt 0 view .LVU23
+ 104 0054 4FF43053 		mov	r3, #11264
+ 105 0058 0493     		str	r3, [sp, #16]
+  57:Core/Src/gpio.c ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+ 106              		.loc 1 57 3 is_stmt 1 view .LVU24
+ 107              		.loc 1 57 24 is_stmt 0 view .LVU25
+ 108 005a 1123     		movs	r3, #17
+ 109 005c 0593     		str	r3, [sp, #20]
+  58:Core/Src/gpio.c ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 110              		.loc 1 58 3 is_stmt 1 view .LVU26
+ 111              		.loc 1 58 24 is_stmt 0 view .LVU27
+ 112 005e 0694     		str	r4, [sp, #24]
+  59:Core/Src/gpio.c ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 113              		.loc 1 59 3 is_stmt 1 view .LVU28
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 4
+
+
+ 114              		.loc 1 59 25 is_stmt 0 view .LVU29
+ 115 0060 0227     		movs	r7, #2
+ 116 0062 0797     		str	r7, [sp, #28]
+  60:Core/Src/gpio.c ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 117              		.loc 1 60 3 is_stmt 1 view .LVU30
+ 118 0064 04A9     		add	r1, sp, #16
+ 119 0066 2846     		mov	r0, r5
+ 120 0068 FFF7FEFF 		bl	HAL_GPIO_Init
+ 121              	.LVL1:
+  61:Core/Src/gpio.c **** 
+  62:Core/Src/gpio.c ****   /*Configure GPIO pins : PBPin PBPin */
+  63:Core/Src/gpio.c ****   GPIO_InitStruct.Pin = NRF_CE_Pin|NRF_CS_Pin;
+ 122              		.loc 1 63 3 view .LVU31
+ 123              		.loc 1 63 23 is_stmt 0 view .LVU32
+ 124 006c 4FF48153 		mov	r3, #4128
+ 125 0070 0493     		str	r3, [sp, #16]
+  64:Core/Src/gpio.c ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 126              		.loc 1 64 3 is_stmt 1 view .LVU33
+ 127              		.loc 1 64 24 is_stmt 0 view .LVU34
+ 128 0072 0126     		movs	r6, #1
+ 129 0074 0596     		str	r6, [sp, #20]
+  65:Core/Src/gpio.c ****   GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 130              		.loc 1 65 3 is_stmt 1 view .LVU35
+ 131              		.loc 1 65 24 is_stmt 0 view .LVU36
+ 132 0076 0696     		str	r6, [sp, #24]
+  66:Core/Src/gpio.c ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 133              		.loc 1 66 3 is_stmt 1 view .LVU37
+ 134              		.loc 1 66 25 is_stmt 0 view .LVU38
+ 135 0078 0797     		str	r7, [sp, #28]
+  67:Core/Src/gpio.c ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 136              		.loc 1 67 3 is_stmt 1 view .LVU39
+ 137 007a 04A9     		add	r1, sp, #16
+ 138 007c 2846     		mov	r0, r5
+ 139 007e FFF7FEFF 		bl	HAL_GPIO_Init
+ 140              	.LVL2:
+  68:Core/Src/gpio.c **** 
+  69:Core/Src/gpio.c ****   /*Configure GPIO pin : PtPin */
+  70:Core/Src/gpio.c ****   GPIO_InitStruct.Pin = NRF_IRQ_Pin;
+ 141              		.loc 1 70 3 view .LVU40
+ 142              		.loc 1 70 23 is_stmt 0 view .LVU41
+ 143 0082 1023     		movs	r3, #16
+ 144 0084 0493     		str	r3, [sp, #16]
+  71:Core/Src/gpio.c ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 145              		.loc 1 71 3 is_stmt 1 view .LVU42
+ 146              		.loc 1 71 24 is_stmt 0 view .LVU43
+ 147 0086 0594     		str	r4, [sp, #20]
+  72:Core/Src/gpio.c ****   GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 148              		.loc 1 72 3 is_stmt 1 view .LVU44
+ 149              		.loc 1 72 24 is_stmt 0 view .LVU45
+ 150 0088 0696     		str	r6, [sp, #24]
+  73:Core/Src/gpio.c ****   HAL_GPIO_Init(NRF_IRQ_GPIO_Port, &GPIO_InitStruct);
+ 151              		.loc 1 73 3 is_stmt 1 view .LVU46
+ 152 008a 0DEB0301 		add	r1, sp, r3
+ 153 008e 2846     		mov	r0, r5
+ 154 0090 FFF7FEFF 		bl	HAL_GPIO_Init
+ 155              	.LVL3:
+  74:Core/Src/gpio.c **** 
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 5
+
+
+  75:Core/Src/gpio.c **** }
+ 156              		.loc 1 75 1 is_stmt 0 view .LVU47
+ 157 0094 09B0     		add	sp, sp, #36
+ 158              	.LCFI2:
+ 159              		.cfi_def_cfa_offset 20
+ 160              		@ sp needed
+ 161 0096 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 162              	.L4:
+ 163              		.align	2
+ 164              	.L3:
+ 165 0098 00100240 		.word	1073876992
+ 166 009c 000C0140 		.word	1073810432
+ 167              		.cfi_endproc
+ 168              	.LFE65:
+ 170              		.text
+ 171              	.Letext0:
+ 172              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 173              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 174              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 175              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 gpio.c
+C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s:16     .text.MX_GPIO_Init:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s:24     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\lenovo\AppData\Local\Temp\cctNZmPg.s:165    .text.MX_GPIO_Init:00000098 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_Init

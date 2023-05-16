@@ -1,0 +1,179 @@
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"stepper.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.loop,"ax",%progbits
+  16              		.align	1
+  17              		.global	loop
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	loop:
+  25              	.LVL0:
+  26              	.LFB65:
+  27              		.file 1 "Core/Src/stepper.c"
+   1:Core/Src/stepper.c **** #include "stepper.h"
+   2:Core/Src/stepper.c **** #include "main.h"
+   3:Core/Src/stepper.c **** #include "delay.h"
+   4:Core/Src/stepper.c **** const int steps_per_cycle=200;
+   5:Core/Src/stepper.c **** 
+   6:Core/Src/stepper.c **** void loop(int a,int angle)
+   7:Core/Src/stepper.c **** {
+  28              		.loc 1 7 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 7 1 is_stmt 0 view .LVU1
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 4, -16
+  37              		.cfi_offset 5, -12
+  38              		.cfi_offset 6, -8
+  39              		.cfi_offset 14, -4
+  40 0002 0E46     		mov	r6, r1
+   8:Core/Src/stepper.c ****     
+   9:Core/Src/stepper.c ****     if(a==0)
+  41              		.loc 1 9 5 is_stmt 1 view .LVU2
+  42              		.loc 1 9 7 is_stmt 0 view .LVU3
+  43 0004 38B9     		cbnz	r0, .L2
+  10:Core/Src/stepper.c ****        HAL_GPIO_WritePin(dir_GPIO_Port,dir_Pin,GPIO_PIN_RESET);//设置逆时针
+  44              		.loc 1 10 8 is_stmt 1 view .LVU4
+  45 0006 0022     		movs	r2, #0
+  46 0008 4FF48061 		mov	r1, #1024
+  47              	.LVL1:
+  48              		.loc 1 10 8 is_stmt 0 view .LVU5
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s 			page 2
+
+
+  49 000c 1248     		ldr	r0, .L7
+  50              	.LVL2:
+  51              		.loc 1 10 8 view .LVU6
+  52 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  53              	.LVL3:
+  54              	.L4:
+   7:Core/Src/stepper.c ****     
+  55              		.loc 1 7 1 discriminator 1 view .LVU7
+  56 0012 0024     		movs	r4, #0
+  57 0014 1AE0     		b	.L3
+  58              	.LVL4:
+  59              	.L2:
+  11:Core/Src/stepper.c ****     else
+  12:Core/Src/stepper.c ****         HAL_GPIO_WritePin(dir_GPIO_Port,dir_Pin,GPIO_PIN_SET);//设置为顺时针
+  60              		.loc 1 12 9 is_stmt 1 view .LVU8
+  61 0016 0122     		movs	r2, #1
+  62 0018 4FF48061 		mov	r1, #1024
+  63              	.LVL5:
+  64              		.loc 1 12 9 is_stmt 0 view .LVU9
+  65 001c 0E48     		ldr	r0, .L7
+  66              	.LVL6:
+  67              		.loc 1 12 9 view .LVU10
+  68 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  69              	.LVL7:
+  70 0022 F6E7     		b	.L4
+  71              	.LVL8:
+  72              	.L5:
+  73              	.LBB2:
+  13:Core/Src/stepper.c **** 
+  14:Core/Src/stepper.c ****     for (int i = 0;i<angle;i++)
+  15:Core/Src/stepper.c ****     {
+  16:Core/Src/stepper.c ****         HAL_GPIO_WritePin(step_GPIO_Port,step_Pin,GPIO_PIN_SET);
+  74              		.loc 1 16 9 is_stmt 1 discriminator 3 view .LVU11
+  75 0024 0C4D     		ldr	r5, .L7
+  76 0026 0122     		movs	r2, #1
+  77 0028 4FF40061 		mov	r1, #2048
+  78 002c 2846     		mov	r0, r5
+  79 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  80              	.LVL9:
+  17:Core/Src/stepper.c ****         HAL_Delay(2);
+  81              		.loc 1 17 9 discriminator 3 view .LVU12
+  82 0032 0220     		movs	r0, #2
+  83 0034 FFF7FEFF 		bl	HAL_Delay
+  84              	.LVL10:
+  18:Core/Src/stepper.c ****         HAL_GPIO_WritePin(step_GPIO_Port,step_Pin,GPIO_PIN_RESET);
+  85              		.loc 1 18 9 discriminator 3 view .LVU13
+  86 0038 0022     		movs	r2, #0
+  87 003a 4FF40061 		mov	r1, #2048
+  88 003e 2846     		mov	r0, r5
+  89 0040 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  90              	.LVL11:
+  19:Core/Src/stepper.c ****         HAL_Delay(2);
+  91              		.loc 1 19 9 discriminator 3 view .LVU14
+  92 0044 0220     		movs	r0, #2
+  93 0046 FFF7FEFF 		bl	HAL_Delay
+  94              	.LVL12:
+  14:Core/Src/stepper.c ****     {
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s 			page 3
+
+
+  95              		.loc 1 14 28 discriminator 3 view .LVU15
+  14:Core/Src/stepper.c ****     {
+  96              		.loc 1 14 29 is_stmt 0 discriminator 3 view .LVU16
+  97 004a 0134     		adds	r4, r4, #1
+  98              	.LVL13:
+  99              	.L3:
+  14:Core/Src/stepper.c ****     {
+ 100              		.loc 1 14 20 is_stmt 1 discriminator 1 view .LVU17
+  14:Core/Src/stepper.c ****     {
+ 101              		.loc 1 14 5 is_stmt 0 discriminator 1 view .LVU18
+ 102 004c B442     		cmp	r4, r6
+ 103 004e E9DB     		blt	.L5
+ 104              	.LBE2:
+  20:Core/Src/stepper.c ****     }
+  21:Core/Src/stepper.c ****     HAL_Delay(100);
+ 105              		.loc 1 21 5 is_stmt 1 view .LVU19
+ 106 0050 6420     		movs	r0, #100
+ 107 0052 FFF7FEFF 		bl	HAL_Delay
+ 108              	.LVL14:
+  22:Core/Src/stepper.c **** }...
+ 109              		.loc 1 22 1 is_stmt 0 view .LVU20
+ 110 0056 70BD     		pop	{r4, r5, r6, pc}
+ 111              	.LVL15:
+ 112              	.L8:
+ 113              		.loc 1 22 1 view .LVU21
+ 114              		.align	2
+ 115              	.L7:
+ 116 0058 000C0140 		.word	1073810432
+ 117              		.cfi_endproc
+ 118              	.LFE65:
+ 120              		.global	steps_per_cycle
+ 121              		.section	.rodata.steps_per_cycle,"a"
+ 122              		.align	2
+ 125              	steps_per_cycle:
+ 126 0000 C8000000 		.word	200
+ 127              		.text
+ 128              	.Letext0:
+ 129              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 130              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 131              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 132              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 133              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stepper.c
+C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s:16     .text.loop:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s:24     .text.loop:00000000 loop
+C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s:116    .text.loop:00000058 $d
+C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s:125    .rodata.steps_per_cycle:00000000 steps_per_cycle
+C:\Users\lenovo\AppData\Local\Temp\ccfrmTYf.s:122    .rodata.steps_per_cycle:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_Delay

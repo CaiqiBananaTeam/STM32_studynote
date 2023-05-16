@@ -1,0 +1,1264 @@
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"nrf24L01.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.SPIx_ReadWriteByte,"ax",%progbits
+  16              		.align	1
+  17              		.global	SPIx_ReadWriteByte
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	SPIx_ReadWriteByte:
+  25              	.LVL0:
+  26              	.LFB65:
+  27              		.file 1 "Core/Src/nrf24L01.c"
+   1:Core/Src/nrf24L01.c **** #include "nrf24L01.h"
+   2:Core/Src/nrf24L01.c **** #include "spi.h"
+   3:Core/Src/nrf24L01.c ****  
+   4:Core/Src/nrf24L01.c **** const uint8_t TX_ADDRESS[TX_ADR_WIDTH]={0x34,0x43,0x10,0x10,0x01}; //发送地址
+   5:Core/Src/nrf24L01.c **** const uint8_t RX_ADDRESS[RX_ADR_WIDTH]={0x34,0x43,0x10,0x10,0x01}; //接收地址
+   6:Core/Src/nrf24L01.c ****   
+   7:Core/Src/nrf24L01.c **** /**
+   8:Core/Src/nrf24L01.c ****   * 函数功能: 往串行Flash读取写入一个字节数据并接收一个字节数据
+   9:Core/Src/nrf24L01.c ****   * 输入参数: byte：待发送数据
+  10:Core/Src/nrf24L01.c ****   * 返 回 值: uint8_t：接收到的数据
+  11:Core/Src/nrf24L01.c ****   * 说    明：无
+  12:Core/Src/nrf24L01.c ****   */
+  13:Core/Src/nrf24L01.c **** uint8_t SPIx_ReadWriteByte(SPI_HandleTypeDef* hspi,uint8_t byte)
+  14:Core/Src/nrf24L01.c **** {
+  28              		.loc 1 14 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 14 1 is_stmt 0 view .LVU1
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 85B0     		sub	sp, sp, #20
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 24
+  15:Core/Src/nrf24L01.c ****   uint8_t d_read,d_send=byte;
+  40              		.loc 1 15 3 is_stmt 1 view .LVU2
+  41              		.loc 1 15 18 is_stmt 0 view .LVU3
+  42 0004 8DF80E10 		strb	r1, [sp, #14]
+  16:Core/Src/nrf24L01.c ****   if(HAL_SPI_TransmitReceive(hspi,&d_send,&d_read,1,0xFF)!=HAL_OK)
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 2
+
+
+  43              		.loc 1 16 3 is_stmt 1 view .LVU4
+  44              		.loc 1 16 6 is_stmt 0 view .LVU5
+  45 0008 FF23     		movs	r3, #255
+  46 000a 0093     		str	r3, [sp]
+  47 000c 0123     		movs	r3, #1
+  48 000e 0DF10F02 		add	r2, sp, #15
+  49 0012 0DF10E01 		add	r1, sp, #14
+  50              	.LVL1:
+  51              		.loc 1 16 6 view .LVU6
+  52 0016 FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+  53              	.LVL2:
+  54              		.loc 1 16 5 view .LVU7
+  55 001a 10B1     		cbz	r0, .L2
+  17:Core/Src/nrf24L01.c ****   {
+  18:Core/Src/nrf24L01.c ****     d_read=0xFF;
+  56              		.loc 1 18 5 is_stmt 1 view .LVU8
+  57              		.loc 1 18 11 is_stmt 0 view .LVU9
+  58 001c FF23     		movs	r3, #255
+  59 001e 8DF80F30 		strb	r3, [sp, #15]
+  60              	.L2:
+  19:Core/Src/nrf24L01.c ****   }
+  20:Core/Src/nrf24L01.c ****   return d_read; 
+  61              		.loc 1 20 3 is_stmt 1 view .LVU10
+  21:Core/Src/nrf24L01.c **** }
+  62              		.loc 1 21 1 is_stmt 0 view .LVU11
+  63 0022 9DF80F00 		ldrb	r0, [sp, #15]	@ zero_extendqisi2
+  64 0026 05B0     		add	sp, sp, #20
+  65              	.LCFI2:
+  66              		.cfi_def_cfa_offset 4
+  67              		@ sp needed
+  68 0028 5DF804FB 		ldr	pc, [sp], #4
+  69              		.cfi_endproc
+  70              	.LFE65:
+  72              		.section	.text.NRF24L01_Write_Reg,"ax",%progbits
+  73              		.align	1
+  74              		.global	NRF24L01_Write_Reg
+  75              		.syntax unified
+  76              		.thumb
+  77              		.thumb_func
+  78              		.fpu softvfp
+  80              	NRF24L01_Write_Reg:
+  81              	.LVL3:
+  82              	.LFB67:
+  22:Core/Src/nrf24L01.c ****  
+  23:Core/Src/nrf24L01.c **** /**
+  24:Core/Src/nrf24L01.c ****   * 函数功能: 检测24L01是否存在
+  25:Core/Src/nrf24L01.c ****   * 输入参数: 无
+  26:Core/Src/nrf24L01.c ****   * 返 回 值: 0，成功;1，失败
+  27:Core/Src/nrf24L01.c ****   * 说    明：无          
+  28:Core/Src/nrf24L01.c ****   */ 
+  29:Core/Src/nrf24L01.c **** uint8_t NRF24L01_Check(void)
+  30:Core/Src/nrf24L01.c **** {
+  31:Core/Src/nrf24L01.c **** 	uint8_t buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};
+  32:Core/Src/nrf24L01.c **** 	uint8_t i;
+  33:Core/Src/nrf24L01.c ****    
+  34:Core/Src/nrf24L01.c **** 	NRF24L01_Write_Buf(NRF_WRITE_REG+TX_ADDR,buf,5);//写入5个字节的地址.	
+  35:Core/Src/nrf24L01.c **** 	NRF24L01_Read_Buf(TX_ADDR,buf,5); //读出写入的地址  
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 3
+
+
+  36:Core/Src/nrf24L01.c **** 	for(i=0;i<5;i++)if(buf[i]!=0XA5)break;	 							   
+  37:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+  38:Core/Src/nrf24L01.c **** 	return 0;		 	//检测到24L01
+  39:Core/Src/nrf24L01.c **** }	
+  40:Core/Src/nrf24L01.c ****  
+  41:Core/Src/nrf24L01.c **** /**
+  42:Core/Src/nrf24L01.c ****   * 函数功能: SPI写寄存器
+  43:Core/Src/nrf24L01.c ****   * 输入参数: 无
+  44:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+  45:Core/Src/nrf24L01.c ****   * 说    明：reg:指定寄存器地址
+  46:Core/Src/nrf24L01.c ****   *           
+  47:Core/Src/nrf24L01.c ****   */ 
+  48:Core/Src/nrf24L01.c **** uint8_t NRF24L01_Write_Reg(uint8_t reg,uint8_t value)
+  49:Core/Src/nrf24L01.c **** {
+  83              		.loc 1 49 1 is_stmt 1 view -0
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              		.loc 1 49 1 is_stmt 0 view .LVU13
+  88 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  89              	.LCFI3:
+  90              		.cfi_def_cfa_offset 24
+  91              		.cfi_offset 3, -24
+  92              		.cfi_offset 4, -20
+  93              		.cfi_offset 5, -16
+  94              		.cfi_offset 6, -12
+  95              		.cfi_offset 7, -8
+  96              		.cfi_offset 14, -4
+  97 0002 0446     		mov	r4, r0
+  98 0004 0D46     		mov	r5, r1
+  50:Core/Src/nrf24L01.c ****     uint8_t status;	
+  99              		.loc 1 50 5 is_stmt 1 view .LVU14
+  51:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_ENABLE();                 //使能SPI传输
+ 100              		.loc 1 51 3 view .LVU15
+ 101 0006 0B4E     		ldr	r6, .L6
+ 102 0008 0022     		movs	r2, #0
+ 103 000a 2021     		movs	r1, #32
+ 104              	.LVL4:
+ 105              		.loc 1 51 3 is_stmt 0 view .LVU16
+ 106 000c 3046     		mov	r0, r6
+ 107              	.LVL5:
+ 108              		.loc 1 51 3 view .LVU17
+ 109 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 110              	.LVL6:
+  52:Core/Src/nrf24L01.c ****   status =SPIx_ReadWriteByte(&hspi1,reg);   //发送寄存器号 
+ 111              		.loc 1 52 3 is_stmt 1 view .LVU18
+ 112              		.loc 1 52 11 is_stmt 0 view .LVU19
+ 113 0012 094F     		ldr	r7, .L6+4
+ 114 0014 2146     		mov	r1, r4
+ 115 0016 3846     		mov	r0, r7
+ 116 0018 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 117              	.LVL7:
+ 118 001c 0446     		mov	r4, r0
+ 119              	.LVL8:
+  53:Core/Src/nrf24L01.c ****   SPIx_ReadWriteByte(&hspi1,value);         //写入寄存器的值
+ 120              		.loc 1 53 3 is_stmt 1 view .LVU20
+ 121 001e 2946     		mov	r1, r5
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 4
+
+
+ 122 0020 3846     		mov	r0, r7
+ 123 0022 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 124              	.LVL9:
+  54:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_DISABLE();                //禁止SPI传输	   
+ 125              		.loc 1 54 3 view .LVU21
+ 126 0026 0122     		movs	r2, #1
+ 127 0028 2021     		movs	r1, #32
+ 128 002a 3046     		mov	r0, r6
+ 129 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 130              	.LVL10:
+  55:Core/Src/nrf24L01.c ****   return(status);       			//返回状态值
+ 131              		.loc 1 55 3 view .LVU22
+  56:Core/Src/nrf24L01.c **** }
+ 132              		.loc 1 56 1 is_stmt 0 view .LVU23
+ 133 0030 2046     		mov	r0, r4
+ 134 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 135              	.LVL11:
+ 136              	.L7:
+ 137              		.loc 1 56 1 view .LVU24
+ 138              		.align	2
+ 139              	.L6:
+ 140 0034 000C0140 		.word	1073810432
+ 141 0038 00000000 		.word	hspi1
+ 142              		.cfi_endproc
+ 143              	.LFE67:
+ 145              		.section	.text.NRF24L01_Read_Reg,"ax",%progbits
+ 146              		.align	1
+ 147              		.global	NRF24L01_Read_Reg
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu softvfp
+ 153              	NRF24L01_Read_Reg:
+ 154              	.LVL12:
+ 155              	.LFB68:
+  57:Core/Src/nrf24L01.c ****  
+  58:Core/Src/nrf24L01.c **** /**
+  59:Core/Src/nrf24L01.c ****   * 函数功能: 读取SPI寄存器值
+  60:Core/Src/nrf24L01.c ****   * 输入参数: 无
+  61:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+  62:Core/Src/nrf24L01.c ****   * 说    明：reg:要读的寄存器
+  63:Core/Src/nrf24L01.c ****   *           
+  64:Core/Src/nrf24L01.c ****   */ 
+  65:Core/Src/nrf24L01.c **** uint8_t NRF24L01_Read_Reg(uint8_t reg)
+  66:Core/Src/nrf24L01.c **** {
+ 156              		.loc 1 66 1 is_stmt 1 view -0
+ 157              		.cfi_startproc
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              		.loc 1 66 1 is_stmt 0 view .LVU26
+ 161 0000 70B5     		push	{r4, r5, r6, lr}
+ 162              	.LCFI4:
+ 163              		.cfi_def_cfa_offset 16
+ 164              		.cfi_offset 4, -16
+ 165              		.cfi_offset 5, -12
+ 166              		.cfi_offset 6, -8
+ 167              		.cfi_offset 14, -4
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 5
+
+
+ 168 0002 0446     		mov	r4, r0
+  67:Core/Src/nrf24L01.c **** 	uint8_t reg_val;	    
+ 169              		.loc 1 67 2 is_stmt 1 view .LVU27
+  68:Core/Src/nrf24L01.c ****  	NRF24L01_SPI_CS_ENABLE();          //使能SPI传输		
+ 170              		.loc 1 68 3 view .LVU28
+ 171 0004 0B4D     		ldr	r5, .L10
+ 172 0006 0022     		movs	r2, #0
+ 173 0008 2021     		movs	r1, #32
+ 174 000a 2846     		mov	r0, r5
+ 175              	.LVL13:
+ 176              		.loc 1 68 3 is_stmt 0 view .LVU29
+ 177 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 178              	.LVL14:
+  69:Core/Src/nrf24L01.c ****   SPIx_ReadWriteByte(&hspi1,reg);   //发送寄存器号
+ 179              		.loc 1 69 3 is_stmt 1 view .LVU30
+ 180 0010 094E     		ldr	r6, .L10+4
+ 181 0012 2146     		mov	r1, r4
+ 182 0014 3046     		mov	r0, r6
+ 183 0016 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 184              	.LVL15:
+  70:Core/Src/nrf24L01.c ****   reg_val=SPIx_ReadWriteByte(&hspi1,0XFF);//读取寄存器内容
+ 185              		.loc 1 70 3 view .LVU31
+ 186              		.loc 1 70 11 is_stmt 0 view .LVU32
+ 187 001a FF21     		movs	r1, #255
+ 188 001c 3046     		mov	r0, r6
+ 189 001e FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 190              	.LVL16:
+ 191 0022 0446     		mov	r4, r0
+ 192              	.LVL17:
+  71:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_DISABLE();          //禁止SPI传输		    
+ 193              		.loc 1 71 3 is_stmt 1 view .LVU33
+ 194 0024 0122     		movs	r2, #1
+ 195 0026 2021     		movs	r1, #32
+ 196 0028 2846     		mov	r0, r5
+ 197 002a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 198              	.LVL18:
+  72:Core/Src/nrf24L01.c ****   return(reg_val);           //返回状态值
+ 199              		.loc 1 72 3 view .LVU34
+  73:Core/Src/nrf24L01.c **** }		
+ 200              		.loc 1 73 1 is_stmt 0 view .LVU35
+ 201 002e 2046     		mov	r0, r4
+ 202 0030 70BD     		pop	{r4, r5, r6, pc}
+ 203              	.LVL19:
+ 204              	.L11:
+ 205              		.loc 1 73 1 view .LVU36
+ 206 0032 00BF     		.align	2
+ 207              	.L10:
+ 208 0034 000C0140 		.word	1073810432
+ 209 0038 00000000 		.word	hspi1
+ 210              		.cfi_endproc
+ 211              	.LFE68:
+ 213              		.section	.text.NRF24L01_Read_Buf,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	NRF24L01_Read_Buf
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 6
+
+
+ 219              		.fpu softvfp
+ 221              	NRF24L01_Read_Buf:
+ 222              	.LVL20:
+ 223              	.LFB69:
+  74:Core/Src/nrf24L01.c ****  
+  75:Core/Src/nrf24L01.c **** /**
+  76:Core/Src/nrf24L01.c ****   * 函数功能: 在指定位置读出指定长度的数据
+  77:Core/Src/nrf24L01.c ****   * 输入参数: 无
+  78:Core/Src/nrf24L01.c ****   * 返 回 值: 此次读到的状态寄存器值 
+  79:Core/Src/nrf24L01.c ****   * 说    明：无
+  80:Core/Src/nrf24L01.c ****   *           
+  81:Core/Src/nrf24L01.c ****   */ 
+  82:Core/Src/nrf24L01.c **** uint8_t NRF24L01_Read_Buf(uint8_t reg,uint8_t *pBuf,uint8_t len)
+  83:Core/Src/nrf24L01.c **** {
+ 224              		.loc 1 83 1 is_stmt 1 view -0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228              		.loc 1 83 1 is_stmt 0 view .LVU38
+ 229 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 230              	.LCFI5:
+ 231              		.cfi_def_cfa_offset 24
+ 232              		.cfi_offset 3, -24
+ 233              		.cfi_offset 4, -20
+ 234              		.cfi_offset 5, -16
+ 235              		.cfi_offset 6, -12
+ 236              		.cfi_offset 7, -8
+ 237              		.cfi_offset 14, -4
+ 238 0002 0446     		mov	r4, r0
+ 239 0004 0E46     		mov	r6, r1
+ 240 0006 1546     		mov	r5, r2
+  84:Core/Src/nrf24L01.c **** 	uint8_t status,uint8_t_ctr;	   
+ 241              		.loc 1 84 2 is_stmt 1 view .LVU39
+  85:Core/Src/nrf24L01.c ****   
+  86:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_ENABLE();           //使能SPI传输
+ 242              		.loc 1 86 3 view .LVU40
+ 243 0008 0022     		movs	r2, #0
+ 244              	.LVL21:
+ 245              		.loc 1 86 3 is_stmt 0 view .LVU41
+ 246 000a 2021     		movs	r1, #32
+ 247              	.LVL22:
+ 248              		.loc 1 86 3 view .LVU42
+ 249 000c 0C48     		ldr	r0, .L16
+ 250              	.LVL23:
+ 251              		.loc 1 86 3 view .LVU43
+ 252 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 253              	.LVL24:
+  87:Core/Src/nrf24L01.c ****   status=SPIx_ReadWriteByte(&hspi1,reg);//发送寄存器值(位置),并读取状态值   	   
+ 254              		.loc 1 87 3 is_stmt 1 view .LVU44
+ 255              		.loc 1 87 10 is_stmt 0 view .LVU45
+ 256 0012 2146     		mov	r1, r4
+ 257 0014 0B48     		ldr	r0, .L16+4
+ 258 0016 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 259              	.LVL25:
+ 260 001a 0746     		mov	r7, r0
+ 261              	.LVL26:
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 7
+
+
+ 262              		.loc 1 88 3 is_stmt 1 view .LVU46
+ 263              		.loc 1 88 18 is_stmt 0 view .LVU47
+ 264 001c 0024     		movs	r4, #0
+ 265              		.loc 1 88 3 view .LVU48
+ 266 001e 06E0     		b	.L13
+ 267              	.LVL27:
+ 268              	.L14:
+  89:Core/Src/nrf24L01.c ****   {
+  90:Core/Src/nrf24L01.c ****     pBuf[uint8_t_ctr]=SPIx_ReadWriteByte(&hspi1,0XFF);//读出数据
+ 269              		.loc 1 90 5 is_stmt 1 discriminator 3 view .LVU49
+ 270              		.loc 1 90 23 is_stmt 0 discriminator 3 view .LVU50
+ 271 0020 FF21     		movs	r1, #255
+ 272 0022 0848     		ldr	r0, .L16+4
+ 273 0024 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 274              	.LVL28:
+ 275              		.loc 1 90 22 discriminator 3 view .LVU51
+ 276 0028 3055     		strb	r0, [r6, r4]
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ 277              		.loc 1 88 37 is_stmt 1 discriminator 3 view .LVU52
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ 278              		.loc 1 88 48 is_stmt 0 discriminator 3 view .LVU53
+ 279 002a 0134     		adds	r4, r4, #1
+ 280              	.LVL29:
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ 281              		.loc 1 88 48 discriminator 3 view .LVU54
+ 282 002c E4B2     		uxtb	r4, r4
+ 283              	.LVL30:
+ 284              	.L13:
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ 285              		.loc 1 88 21 is_stmt 1 discriminator 1 view .LVU55
+  88:Core/Src/nrf24L01.c ****  	for(uint8_t_ctr=0;uint8_t_ctr<len;uint8_t_ctr++)
+ 286              		.loc 1 88 3 is_stmt 0 discriminator 1 view .LVU56
+ 287 002e AC42     		cmp	r4, r5
+ 288 0030 F6D3     		bcc	.L14
+  91:Core/Src/nrf24L01.c ****   }
+  92:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_DISABLE();       //关闭SPI传输
+ 289              		.loc 1 92 3 is_stmt 1 view .LVU57
+ 290 0032 0122     		movs	r2, #1
+ 291 0034 2021     		movs	r1, #32
+ 292 0036 0248     		ldr	r0, .L16
+ 293 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 294              	.LVL31:
+  93:Core/Src/nrf24L01.c ****   return status;        //返回读到的状态值
+ 295              		.loc 1 93 3 view .LVU58
+  94:Core/Src/nrf24L01.c **** }
+ 296              		.loc 1 94 1 is_stmt 0 view .LVU59
+ 297 003c 3846     		mov	r0, r7
+ 298 003e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 299              	.LVL32:
+ 300              	.L17:
+ 301              		.loc 1 94 1 view .LVU60
+ 302              		.align	2
+ 303              	.L16:
+ 304 0040 000C0140 		.word	1073810432
+ 305 0044 00000000 		.word	hspi1
+ 306              		.cfi_endproc
+ 307              	.LFE69:
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 8
+
+
+ 309              		.section	.text.NRF24L01_Write_Buf,"ax",%progbits
+ 310              		.align	1
+ 311              		.global	NRF24L01_Write_Buf
+ 312              		.syntax unified
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.fpu softvfp
+ 317              	NRF24L01_Write_Buf:
+ 318              	.LVL33:
+ 319              	.LFB70:
+  95:Core/Src/nrf24L01.c ****  
+  96:Core/Src/nrf24L01.c **** /**
+  97:Core/Src/nrf24L01.c ****   * 函数功能: 在指定位置写指定长度的数据
+  98:Core/Src/nrf24L01.c ****   * 输入参数: 无
+  99:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+ 100:Core/Src/nrf24L01.c ****   * 说    明：reg:寄存器(位置)  *pBuf:数据指针  len:数据长度
+ 101:Core/Src/nrf24L01.c ****   *           
+ 102:Core/Src/nrf24L01.c ****   */ 
+ 103:Core/Src/nrf24L01.c **** uint8_t NRF24L01_Write_Buf(uint8_t reg, uint8_t *pBuf, uint8_t len)
+ 104:Core/Src/nrf24L01.c **** {
+ 320              		.loc 1 104 1 is_stmt 1 view -0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		.loc 1 104 1 is_stmt 0 view .LVU62
+ 325 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 326              	.LCFI6:
+ 327              		.cfi_def_cfa_offset 24
+ 328              		.cfi_offset 3, -24
+ 329              		.cfi_offset 4, -20
+ 330              		.cfi_offset 5, -16
+ 331              		.cfi_offset 6, -12
+ 332              		.cfi_offset 7, -8
+ 333              		.cfi_offset 14, -4
+ 334 0002 0546     		mov	r5, r0
+ 335 0004 0C46     		mov	r4, r1
+ 336 0006 1646     		mov	r6, r2
+ 105:Core/Src/nrf24L01.c **** 	uint8_t status,uint8_t_ctr;	    
+ 337              		.loc 1 105 2 is_stmt 1 view .LVU63
+ 106:Core/Src/nrf24L01.c ****  	NRF24L01_SPI_CS_ENABLE();          //使能SPI传输
+ 338              		.loc 1 106 3 view .LVU64
+ 339 0008 0022     		movs	r2, #0
+ 340              	.LVL34:
+ 341              		.loc 1 106 3 is_stmt 0 view .LVU65
+ 342 000a 2021     		movs	r1, #32
+ 343              	.LVL35:
+ 344              		.loc 1 106 3 view .LVU66
+ 345 000c 0C48     		ldr	r0, .L22
+ 346              	.LVL36:
+ 347              		.loc 1 106 3 view .LVU67
+ 348 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 349              	.LVL37:
+ 107:Core/Src/nrf24L01.c ****   status = SPIx_ReadWriteByte(&hspi1,reg);//发送寄存器值(位置),并读取状态值
+ 350              		.loc 1 107 3 is_stmt 1 view .LVU68
+ 351              		.loc 1 107 12 is_stmt 0 view .LVU69
+ 352 0012 2946     		mov	r1, r5
+ 353 0014 0B48     		ldr	r0, .L22+4
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 9
+
+
+ 354 0016 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 355              	.LVL38:
+ 356 001a 0746     		mov	r7, r0
+ 357              	.LVL39:
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 358              		.loc 1 108 3 is_stmt 1 view .LVU70
+ 359              		.loc 1 108 18 is_stmt 0 view .LVU71
+ 360 001c 0025     		movs	r5, #0
+ 361              		.loc 1 108 3 view .LVU72
+ 362 001e 06E0     		b	.L19
+ 363              	.LVL40:
+ 364              	.L20:
+ 109:Core/Src/nrf24L01.c ****   {
+ 110:Core/Src/nrf24L01.c ****     SPIx_ReadWriteByte(&hspi1,*pBuf++); //写入数据	 
+ 365              		.loc 1 110 5 is_stmt 1 discriminator 3 view .LVU73
+ 366              		.loc 1 110 5 is_stmt 0 discriminator 3 view .LVU74
+ 367 0020 14F8011B 		ldrb	r1, [r4], #1	@ zero_extendqisi2
+ 368              	.LVL41:
+ 369              		.loc 1 110 5 discriminator 3 view .LVU75
+ 370 0024 0748     		ldr	r0, .L22+4
+ 371 0026 FFF7FEFF 		bl	SPIx_ReadWriteByte
+ 372              	.LVL42:
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 373              		.loc 1 108 39 is_stmt 1 discriminator 3 view .LVU76
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 374              		.loc 1 108 50 is_stmt 0 discriminator 3 view .LVU77
+ 375 002a 0135     		adds	r5, r5, #1
+ 376              	.LVL43:
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 377              		.loc 1 108 50 discriminator 3 view .LVU78
+ 378 002c EDB2     		uxtb	r5, r5
+ 379              	.LVL44:
+ 380              	.L19:
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 381              		.loc 1 108 22 is_stmt 1 discriminator 1 view .LVU79
+ 108:Core/Src/nrf24L01.c ****   for(uint8_t_ctr=0; uint8_t_ctr<len; uint8_t_ctr++)
+ 382              		.loc 1 108 3 is_stmt 0 discriminator 1 view .LVU80
+ 383 002e B542     		cmp	r5, r6
+ 384 0030 F6D3     		bcc	.L20
+ 111:Core/Src/nrf24L01.c ****   }
+ 112:Core/Src/nrf24L01.c ****   NRF24L01_SPI_CS_DISABLE();       //关闭SPI传输
+ 385              		.loc 1 112 3 is_stmt 1 view .LVU81
+ 386 0032 0122     		movs	r2, #1
+ 387 0034 2021     		movs	r1, #32
+ 388 0036 0248     		ldr	r0, .L22
+ 389 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 390              	.LVL45:
+ 113:Core/Src/nrf24L01.c ****   return status;          //返回读到的状态值
+ 391              		.loc 1 113 3 view .LVU82
+ 114:Core/Src/nrf24L01.c **** }		
+ 392              		.loc 1 114 1 is_stmt 0 view .LVU83
+ 393 003c 3846     		mov	r0, r7
+ 394 003e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 395              	.LVL46:
+ 396              	.L23:
+ 397              		.loc 1 114 1 view .LVU84
+ 398              		.align	2
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 10
+
+
+ 399              	.L22:
+ 400 0040 000C0140 		.word	1073810432
+ 401 0044 00000000 		.word	hspi1
+ 402              		.cfi_endproc
+ 403              	.LFE70:
+ 405              		.section	.rodata.NRF24L01_Check.str1.4,"aMS",%progbits,1
+ 406              		.align	2
+ 407              	.LC0:
+ 408 0000 A5A5A5A5 		.ascii	"\245\245\245\245\245\000"
+ 408      A500
+ 409              		.section	.text.NRF24L01_Check,"ax",%progbits
+ 410              		.align	1
+ 411              		.global	NRF24L01_Check
+ 412              		.syntax unified
+ 413              		.thumb
+ 414              		.thumb_func
+ 415              		.fpu softvfp
+ 417              	NRF24L01_Check:
+ 418              	.LFB66:
+  30:Core/Src/nrf24L01.c **** 	uint8_t buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};
+ 419              		.loc 1 30 1 is_stmt 1 view -0
+ 420              		.cfi_startproc
+ 421              		@ args = 0, pretend = 0, frame = 8
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423 0000 00B5     		push	{lr}
+ 424              	.LCFI7:
+ 425              		.cfi_def_cfa_offset 4
+ 426              		.cfi_offset 14, -4
+ 427 0002 83B0     		sub	sp, sp, #12
+ 428              	.LCFI8:
+ 429              		.cfi_def_cfa_offset 16
+  31:Core/Src/nrf24L01.c **** 	uint8_t i;
+ 430              		.loc 1 31 2 view .LVU86
+  31:Core/Src/nrf24L01.c **** 	uint8_t i;
+ 431              		.loc 1 31 10 is_stmt 0 view .LVU87
+ 432 0004 124B     		ldr	r3, .L31
+ 433 0006 93E80300 		ldm	r3, {r0, r1}
+ 434 000a 0090     		str	r0, [sp]
+ 435 000c 8DF80410 		strb	r1, [sp, #4]
+  32:Core/Src/nrf24L01.c ****    
+ 436              		.loc 1 32 2 is_stmt 1 view .LVU88
+  34:Core/Src/nrf24L01.c **** 	NRF24L01_Read_Buf(TX_ADDR,buf,5); //读出写入的地址  
+ 437              		.loc 1 34 2 view .LVU89
+ 438 0010 0522     		movs	r2, #5
+ 439 0012 6946     		mov	r1, sp
+ 440 0014 3020     		movs	r0, #48
+ 441 0016 FFF7FEFF 		bl	NRF24L01_Write_Buf
+ 442              	.LVL47:
+  35:Core/Src/nrf24L01.c **** 	for(i=0;i<5;i++)if(buf[i]!=0XA5)break;	 							   
+ 443              		.loc 1 35 2 view .LVU90
+ 444 001a 0522     		movs	r2, #5
+ 445 001c 6946     		mov	r1, sp
+ 446 001e 1020     		movs	r0, #16
+ 447 0020 FFF7FEFF 		bl	NRF24L01_Read_Buf
+ 448              	.LVL48:
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 449              		.loc 1 36 2 view .LVU91
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 11
+
+
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 450              		.loc 1 36 7 is_stmt 0 view .LVU92
+ 451 0024 0023     		movs	r3, #0
+ 452              	.LVL49:
+ 453              	.L25:
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 454              		.loc 1 36 10 is_stmt 1 discriminator 3 view .LVU93
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 455              		.loc 1 36 2 is_stmt 0 discriminator 3 view .LVU94
+ 456 0026 042B     		cmp	r3, #4
+ 457 0028 09D8     		bhi	.L26
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 458              		.loc 1 36 18 is_stmt 1 discriminator 4 view .LVU95
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 459              		.loc 1 36 24 is_stmt 0 discriminator 4 view .LVU96
+ 460 002a 03F10802 		add	r2, r3, #8
+ 461 002e 6A44     		add	r2, sp, r2
+ 462 0030 12F8082C 		ldrb	r2, [r2, #-8]	@ zero_extendqisi2
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 463              		.loc 1 36 20 discriminator 4 view .LVU97
+ 464 0034 A52A     		cmp	r2, #165
+ 465 0036 02D1     		bne	.L26
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 466              		.loc 1 36 14 is_stmt 1 discriminator 2 view .LVU98
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 467              		.loc 1 36 15 is_stmt 0 discriminator 2 view .LVU99
+ 468 0038 0133     		adds	r3, r3, #1
+ 469              	.LVL50:
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 470              		.loc 1 36 15 discriminator 2 view .LVU100
+ 471 003a DBB2     		uxtb	r3, r3
+ 472              	.LVL51:
+  36:Core/Src/nrf24L01.c **** 	if(i!=5)return 1;   //检测24L01错误	
+ 473              		.loc 1 36 15 discriminator 2 view .LVU101
+ 474 003c F3E7     		b	.L25
+ 475              	.L26:
+  37:Core/Src/nrf24L01.c **** 	return 0;		 	//检测到24L01
+ 476              		.loc 1 37 2 is_stmt 1 view .LVU102
+  37:Core/Src/nrf24L01.c **** 	return 0;		 	//检测到24L01
+ 477              		.loc 1 37 4 is_stmt 0 view .LVU103
+ 478 003e 052B     		cmp	r3, #5
+ 479 0040 03D1     		bne	.L29
+  38:Core/Src/nrf24L01.c **** }	
+ 480              		.loc 1 38 9 view .LVU104
+ 481 0042 0020     		movs	r0, #0
+ 482              	.L28:
+  39:Core/Src/nrf24L01.c ****  
+ 483              		.loc 1 39 1 view .LVU105
+ 484 0044 03B0     		add	sp, sp, #12
+ 485              	.LCFI9:
+ 486              		.cfi_remember_state
+ 487              		.cfi_def_cfa_offset 4
+ 488              		@ sp needed
+ 489 0046 5DF804FB 		ldr	pc, [sp], #4
+ 490              	.L29:
+ 491              	.LCFI10:
+ 492              		.cfi_restore_state
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 12
+
+
+  37:Core/Src/nrf24L01.c **** 	return 0;		 	//检测到24L01
+ 493              		.loc 1 37 17 view .LVU106
+ 494 004a 0120     		movs	r0, #1
+ 495 004c FAE7     		b	.L28
+ 496              	.L32:
+ 497 004e 00BF     		.align	2
+ 498              	.L31:
+ 499 0050 00000000 		.word	.LC0
+ 500              		.cfi_endproc
+ 501              	.LFE66:
+ 503              		.section	.text.NRF24L01_TxPacket,"ax",%progbits
+ 504              		.align	1
+ 505              		.global	NRF24L01_TxPacket
+ 506              		.syntax unified
+ 507              		.thumb
+ 508              		.thumb_func
+ 509              		.fpu softvfp
+ 511              	NRF24L01_TxPacket:
+ 512              	.LVL52:
+ 513              	.LFB71:
+ 115:Core/Src/nrf24L01.c ****  
+ 116:Core/Src/nrf24L01.c **** /**
+ 117:Core/Src/nrf24L01.c ****   * 函数功能: 启动NRF24L01发送一次数据
+ 118:Core/Src/nrf24L01.c ****   * 输入参数: 无
+ 119:Core/Src/nrf24L01.c ****   * 返 回 值: 成功返回TX_OK,失败返回0xff
+ 120:Core/Src/nrf24L01.c ****   * 说    明：txbuf:待发送数据首地址
+ 121:Core/Src/nrf24L01.c ****   *           
+ 122:Core/Src/nrf24L01.c ****   */ 
+ 123:Core/Src/nrf24L01.c **** uint8_t NRF24L01_TxPacket(uint8_t *txbuf)
+ 124:Core/Src/nrf24L01.c **** {
+ 514              		.loc 1 124 1 is_stmt 1 view -0
+ 515              		.cfi_startproc
+ 516              		@ args = 0, pretend = 0, frame = 0
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              		.loc 1 124 1 is_stmt 0 view .LVU108
+ 519 0000 38B5     		push	{r3, r4, r5, lr}
+ 520              	.LCFI11:
+ 521              		.cfi_def_cfa_offset 16
+ 522              		.cfi_offset 3, -16
+ 523              		.cfi_offset 4, -12
+ 524              		.cfi_offset 5, -8
+ 525              		.cfi_offset 14, -4
+ 526 0002 0446     		mov	r4, r0
+ 125:Core/Src/nrf24L01.c **** 	uint8_t sta; 
+ 527              		.loc 1 125 2 is_stmt 1 view .LVU109
+ 126:Core/Src/nrf24L01.c **** 	NRF24L01_CE_LOW();
+ 528              		.loc 1 126 2 view .LVU110
+ 529 0004 174D     		ldr	r5, .L40
+ 530 0006 0022     		movs	r2, #0
+ 531 0008 4FF48051 		mov	r1, #4096
+ 532 000c 2846     		mov	r0, r5
+ 533              	.LVL53:
+ 534              		.loc 1 126 2 is_stmt 0 view .LVU111
+ 535 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 536              	.LVL54:
+ 127:Core/Src/nrf24L01.c ****     NRF24L01_Write_Buf(WR_TX_PLOAD,txbuf,TX_PLOAD_WIDTH);//写数据到TX BUF  32个字节
+ 537              		.loc 1 127 5 is_stmt 1 view .LVU112
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 13
+
+
+ 538 0012 2022     		movs	r2, #32
+ 539 0014 2146     		mov	r1, r4
+ 540 0016 A020     		movs	r0, #160
+ 541 0018 FFF7FEFF 		bl	NRF24L01_Write_Buf
+ 542              	.LVL55:
+ 128:Core/Src/nrf24L01.c ****  	NRF24L01_CE_HIGH();//启动发送	 
+ 543              		.loc 1 128 3 view .LVU113
+ 544 001c 0122     		movs	r2, #1
+ 545 001e 4FF48051 		mov	r1, #4096
+ 546 0022 2846     		mov	r0, r5
+ 547 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 548              	.LVL56:
+ 129:Core/Src/nrf24L01.c ****   
+ 130:Core/Src/nrf24L01.c **** 	while(NRF24L01_IRQ_PIN_READ()!=0);//等待发送完成
+ 549              		.loc 1 130 2 view .LVU114
+ 550              	.L34:
+ 551              		.loc 1 130 35 discriminator 1 view .LVU115
+ 552              		.loc 1 130 7 discriminator 1 view .LVU116
+ 553              		.loc 1 130 8 is_stmt 0 discriminator 1 view .LVU117
+ 554 0028 1021     		movs	r1, #16
+ 555 002a 0E48     		ldr	r0, .L40
+ 556 002c FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 557              	.LVL57:
+ 558              		.loc 1 130 7 discriminator 1 view .LVU118
+ 559 0030 0028     		cmp	r0, #0
+ 560 0032 F9D1     		bne	.L34
+ 131:Core/Src/nrf24L01.c ****   
+ 132:Core/Src/nrf24L01.c **** 	sta=NRF24L01_Read_Reg(STATUS);  //读取状态寄存器的值	   
+ 561              		.loc 1 132 2 is_stmt 1 view .LVU119
+ 562              		.loc 1 132 6 is_stmt 0 view .LVU120
+ 563 0034 0720     		movs	r0, #7
+ 564 0036 FFF7FEFF 		bl	NRF24L01_Read_Reg
+ 565              	.LVL58:
+ 566 003a 0446     		mov	r4, r0
+ 567              	.LVL59:
+ 133:Core/Src/nrf24L01.c **** 	NRF24L01_Write_Reg(NRF_WRITE_REG+STATUS,sta); //清除TX_DS或MAX_RT中断标志
+ 568              		.loc 1 133 2 is_stmt 1 view .LVU121
+ 569 003c 0146     		mov	r1, r0
+ 570 003e 2720     		movs	r0, #39
+ 571              	.LVL60:
+ 572              		.loc 1 133 2 is_stmt 0 view .LVU122
+ 573 0040 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 574              	.LVL61:
+ 134:Core/Src/nrf24L01.c **** 	if(sta&MAX_TX)//达到最大重发次数
+ 575              		.loc 1 134 2 is_stmt 1 view .LVU123
+ 576              		.loc 1 134 4 is_stmt 0 view .LVU124
+ 577 0044 14F0100F 		tst	r4, #16
+ 578 0048 04D1     		bne	.L39
+ 135:Core/Src/nrf24L01.c **** 	{
+ 136:Core/Src/nrf24L01.c **** 		NRF24L01_Write_Reg(FLUSH_TX,0xff);//清除TX FIFO寄存器 
+ 137:Core/Src/nrf24L01.c **** 		return MAX_TX; 
+ 138:Core/Src/nrf24L01.c **** 	}
+ 139:Core/Src/nrf24L01.c **** 	if(sta&TX_OK)//发送完成
+ 579              		.loc 1 139 2 is_stmt 1 view .LVU125
+ 580              		.loc 1 139 4 is_stmt 0 view .LVU126
+ 581 004a 14F0200F 		tst	r4, #32
+ 582 004e 07D1     		bne	.L37
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 14
+
+
+ 140:Core/Src/nrf24L01.c **** 	{
+ 141:Core/Src/nrf24L01.c **** 		return TX_OK;
+ 142:Core/Src/nrf24L01.c **** 	}
+ 143:Core/Src/nrf24L01.c **** 	return 0xff;//其他原因发送失败
+ 583              		.loc 1 143 9 view .LVU127
+ 584 0050 FF20     		movs	r0, #255
+ 585              	.L36:
+ 144:Core/Src/nrf24L01.c **** }
+ 586              		.loc 1 144 1 view .LVU128
+ 587 0052 38BD     		pop	{r3, r4, r5, pc}
+ 588              	.L39:
+ 136:Core/Src/nrf24L01.c **** 		return MAX_TX; 
+ 589              		.loc 1 136 3 is_stmt 1 view .LVU129
+ 590 0054 FF21     		movs	r1, #255
+ 591 0056 E120     		movs	r0, #225
+ 592 0058 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 593              	.LVL62:
+ 137:Core/Src/nrf24L01.c **** 	}
+ 594              		.loc 1 137 3 view .LVU130
+ 137:Core/Src/nrf24L01.c **** 	}
+ 595              		.loc 1 137 10 is_stmt 0 view .LVU131
+ 596 005c 1020     		movs	r0, #16
+ 597 005e F8E7     		b	.L36
+ 598              	.L37:
+ 141:Core/Src/nrf24L01.c **** 	}
+ 599              		.loc 1 141 10 view .LVU132
+ 600 0060 2020     		movs	r0, #32
+ 601 0062 F6E7     		b	.L36
+ 602              	.L41:
+ 603              		.align	2
+ 604              	.L40:
+ 605 0064 000C0140 		.word	1073810432
+ 606              		.cfi_endproc
+ 607              	.LFE71:
+ 609              		.section	.text.NRF24L01_RxPacket,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	NRF24L01_RxPacket
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu softvfp
+ 617              	NRF24L01_RxPacket:
+ 618              	.LVL63:
+ 619              	.LFB72:
+ 145:Core/Src/nrf24L01.c ****  
+ 146:Core/Src/nrf24L01.c **** /**
+ 147:Core/Src/nrf24L01.c ****   * 函数功能:启动NRF24L01接收一次数据
+ 148:Core/Src/nrf24L01.c ****   * 输入参数: 无
+ 149:Core/Src/nrf24L01.c ****   * 返 回 值: 成功返回0，失败返回1
+ 150:Core/Src/nrf24L01.c ****   * 说    明：无
+ 151:Core/Src/nrf24L01.c ****   *           
+ 152:Core/Src/nrf24L01.c ****   */ 
+ 153:Core/Src/nrf24L01.c **** uint8_t NRF24L01_RxPacket(uint8_t *rxbuf)
+ 154:Core/Src/nrf24L01.c **** {
+ 620              		.loc 1 154 1 is_stmt 1 view -0
+ 621              		.cfi_startproc
+ 622              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 15
+
+
+ 623              		@ frame_needed = 0, uses_anonymous_args = 0
+ 624              		.loc 1 154 1 is_stmt 0 view .LVU134
+ 625 0000 38B5     		push	{r3, r4, r5, lr}
+ 626              	.LCFI12:
+ 627              		.cfi_def_cfa_offset 16
+ 628              		.cfi_offset 3, -16
+ 629              		.cfi_offset 4, -12
+ 630              		.cfi_offset 5, -8
+ 631              		.cfi_offset 14, -4
+ 632 0002 0546     		mov	r5, r0
+ 155:Core/Src/nrf24L01.c **** 	uint8_t sta;		 
+ 633              		.loc 1 155 2 is_stmt 1 view .LVU135
+ 156:Core/Src/nrf24L01.c **** 	sta=NRF24L01_Read_Reg(STATUS);  //读取状态寄存器的值    	 
+ 634              		.loc 1 156 2 view .LVU136
+ 635              		.loc 1 156 6 is_stmt 0 view .LVU137
+ 636 0004 0720     		movs	r0, #7
+ 637              	.LVL64:
+ 638              		.loc 1 156 6 view .LVU138
+ 639 0006 FFF7FEFF 		bl	NRF24L01_Read_Reg
+ 640              	.LVL65:
+ 641 000a 0446     		mov	r4, r0
+ 642              	.LVL66:
+ 157:Core/Src/nrf24L01.c **** 	NRF24L01_Write_Reg(NRF_WRITE_REG+STATUS,sta); //清除TX_DS或MAX_RT中断标志
+ 643              		.loc 1 157 2 is_stmt 1 view .LVU139
+ 644 000c 0146     		mov	r1, r0
+ 645 000e 2720     		movs	r0, #39
+ 646              	.LVL67:
+ 647              		.loc 1 157 2 is_stmt 0 view .LVU140
+ 648 0010 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 649              	.LVL68:
+ 158:Core/Src/nrf24L01.c **** 	if(sta&RX_OK)//接收到数据
+ 650              		.loc 1 158 2 is_stmt 1 view .LVU141
+ 651              		.loc 1 158 4 is_stmt 0 view .LVU142
+ 652 0014 14F0400F 		tst	r4, #64
+ 653 0018 01D1     		bne	.L46
+ 159:Core/Src/nrf24L01.c **** 	{
+ 160:Core/Src/nrf24L01.c **** 		NRF24L01_Read_Buf(RD_RX_PLOAD,rxbuf,RX_PLOAD_WIDTH);//读取数据
+ 161:Core/Src/nrf24L01.c **** 		NRF24L01_Write_Reg(FLUSH_RX,0xff);//清除RX FIFO寄存器 
+ 162:Core/Src/nrf24L01.c **** 		return 0; 
+ 163:Core/Src/nrf24L01.c **** 	}	   
+ 164:Core/Src/nrf24L01.c **** 	return 1;//没收到任何数据
+ 654              		.loc 1 164 9 view .LVU143
+ 655 001a 0120     		movs	r0, #1
+ 656              	.L43:
+ 165:Core/Src/nrf24L01.c **** }			
+ 657              		.loc 1 165 1 view .LVU144
+ 658 001c 38BD     		pop	{r3, r4, r5, pc}
+ 659              	.LVL69:
+ 660              	.L46:
+ 160:Core/Src/nrf24L01.c **** 		NRF24L01_Write_Reg(FLUSH_RX,0xff);//清除RX FIFO寄存器 
+ 661              		.loc 1 160 3 is_stmt 1 view .LVU145
+ 662 001e 2022     		movs	r2, #32
+ 663 0020 2946     		mov	r1, r5
+ 664 0022 6120     		movs	r0, #97
+ 665 0024 FFF7FEFF 		bl	NRF24L01_Read_Buf
+ 666              	.LVL70:
+ 161:Core/Src/nrf24L01.c **** 		return 0; 
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 16
+
+
+ 667              		.loc 1 161 3 view .LVU146
+ 668 0028 FF21     		movs	r1, #255
+ 669 002a E220     		movs	r0, #226
+ 670 002c FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 671              	.LVL71:
+ 162:Core/Src/nrf24L01.c **** 	}	   
+ 672              		.loc 1 162 3 view .LVU147
+ 162:Core/Src/nrf24L01.c **** 	}	   
+ 673              		.loc 1 162 10 is_stmt 0 view .LVU148
+ 674 0030 0020     		movs	r0, #0
+ 675 0032 F3E7     		b	.L43
+ 676              		.cfi_endproc
+ 677              	.LFE72:
+ 679              		.section	.text.NRF24L01_RX_Mode,"ax",%progbits
+ 680              		.align	1
+ 681              		.global	NRF24L01_RX_Mode
+ 682              		.syntax unified
+ 683              		.thumb
+ 684              		.thumb_func
+ 685              		.fpu softvfp
+ 687              	NRF24L01_RX_Mode:
+ 688              	.LFB73:
+ 166:Core/Src/nrf24L01.c ****  
+ 167:Core/Src/nrf24L01.c **** /**
+ 168:Core/Src/nrf24L01.c ****   * 函数功能: 该函数初始化NRF24L01到RX模式
+ 169:Core/Src/nrf24L01.c ****   * 输入参数: 无
+ 170:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+ 171:Core/Src/nrf24L01.c ****   * 说    明：无
+ 172:Core/Src/nrf24L01.c ****   *           
+ 173:Core/Src/nrf24L01.c ****   */ 
+ 174:Core/Src/nrf24L01.c **** void NRF24L01_RX_Mode(void)
+ 175:Core/Src/nrf24L01.c **** {
+ 689              		.loc 1 175 1 is_stmt 1 view -0
+ 690              		.cfi_startproc
+ 691              		@ args = 0, pretend = 0, frame = 0
+ 692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 693 0000 10B5     		push	{r4, lr}
+ 694              	.LCFI13:
+ 695              		.cfi_def_cfa_offset 8
+ 696              		.cfi_offset 4, -8
+ 697              		.cfi_offset 14, -4
+ 176:Core/Src/nrf24L01.c ****   NRF24L01_CE_LOW();	  
+ 698              		.loc 1 176 3 view .LVU150
+ 699 0002 174C     		ldr	r4, .L49
+ 700 0004 0022     		movs	r2, #0
+ 701 0006 4FF48051 		mov	r1, #4096
+ 702 000a 2046     		mov	r0, r4
+ 703 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 704              	.LVL72:
+ 177:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+CONFIG, 0x0F);//配置基本工作模式的参数;PWR_UP,EN_CRC,
+ 705              		.loc 1 177 3 view .LVU151
+ 706 0010 0F21     		movs	r1, #15
+ 707 0012 2020     		movs	r0, #32
+ 708 0014 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 709              	.LVL73:
+ 178:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+EN_AA,0x01);    //使能通道0的自动应答    
+ 710              		.loc 1 178 3 view .LVU152
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 17
+
+
+ 711 0018 0121     		movs	r1, #1
+ 712 001a 2120     		movs	r0, #33
+ 713 001c FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 714              	.LVL74:
+ 179:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+EN_RXADDR,0x01);//使能通道0的接收地址  	 
+ 715              		.loc 1 179 3 view .LVU153
+ 716 0020 0121     		movs	r1, #1
+ 717 0022 2220     		movs	r0, #34
+ 718 0024 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 719              	.LVL75:
+ 180:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_CH,40);	     //设置RF通信频率		  
+ 720              		.loc 1 180 3 view .LVU154
+ 721 0028 2821     		movs	r1, #40
+ 722 002a 2520     		movs	r0, #37
+ 723 002c FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 724              	.LVL76:
+ 181:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_SETUP,0x0f);//设置TX发射参数,0db增益,2Mbps,低噪声�
+ 725              		.loc 1 181 3 view .LVU155
+ 726 0030 0F21     		movs	r1, #15
+ 727 0032 2620     		movs	r0, #38
+ 728 0034 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 729              	.LVL77:
+ 182:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);//选择通道0的有效数据宽度 	 
+ 730              		.loc 1 182 3 view .LVU156
+ 731 0038 2021     		movs	r1, #32
+ 732 003a 3120     		movs	r0, #49
+ 733 003c FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 734              	.LVL78:
+ 183:Core/Src/nrf24L01.c ****   NRF24L01_Write_Buf(NRF_WRITE_REG+RX_ADDR_P0,(uint8_t*)RX_ADDRESS,RX_ADR_WIDTH);//写RX节点地�
+ 735              		.loc 1 183 3 view .LVU157
+ 736 0040 0522     		movs	r2, #5
+ 737 0042 0849     		ldr	r1, .L49+4
+ 738 0044 2A20     		movs	r0, #42
+ 739 0046 FFF7FEFF 		bl	NRF24L01_Write_Buf
+ 740              	.LVL79:
+ 184:Core/Src/nrf24L01.c ****   NRF24L01_CE_HIGH(); //CE为高,进入接收模式 
+ 741              		.loc 1 184 3 view .LVU158
+ 742 004a 0122     		movs	r2, #1
+ 743 004c 4FF48051 		mov	r1, #4096
+ 744 0050 2046     		mov	r0, r4
+ 745 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 746              	.LVL80:
+ 185:Core/Src/nrf24L01.c ****   HAL_Delay(1);
+ 747              		.loc 1 185 3 view .LVU159
+ 748 0056 0120     		movs	r0, #1
+ 749 0058 FFF7FEFF 		bl	HAL_Delay
+ 750              	.LVL81:
+ 186:Core/Src/nrf24L01.c **** }	
+ 751              		.loc 1 186 1 is_stmt 0 view .LVU160
+ 752 005c 10BD     		pop	{r4, pc}
+ 753              	.L50:
+ 754 005e 00BF     		.align	2
+ 755              	.L49:
+ 756 0060 000C0140 		.word	1073810432
+ 757 0064 00000000 		.word	.LANCHOR0
+ 758              		.cfi_endproc
+ 759              	.LFE73:
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 18
+
+
+ 761              		.section	.text.NRF24L01_TX_Mode,"ax",%progbits
+ 762              		.align	1
+ 763              		.global	NRF24L01_TX_Mode
+ 764              		.syntax unified
+ 765              		.thumb
+ 766              		.thumb_func
+ 767              		.fpu softvfp
+ 769              	NRF24L01_TX_Mode:
+ 770              	.LFB74:
+ 187:Core/Src/nrf24L01.c ****  
+ 188:Core/Src/nrf24L01.c **** /**
+ 189:Core/Src/nrf24L01.c ****   * 函数功能: 该函数初始化NRF24L01到TX模式
+ 190:Core/Src/nrf24L01.c ****   * 输入参数: 无
+ 191:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+ 192:Core/Src/nrf24L01.c ****   * 说    明：无
+ 193:Core/Src/nrf24L01.c ****   *           
+ 194:Core/Src/nrf24L01.c ****   */ 
+ 195:Core/Src/nrf24L01.c **** void NRF24L01_TX_Mode(void)
+ 196:Core/Src/nrf24L01.c **** {														 
+ 771              		.loc 1 196 1 is_stmt 1 view -0
+ 772              		.cfi_startproc
+ 773              		@ args = 0, pretend = 0, frame = 0
+ 774              		@ frame_needed = 0, uses_anonymous_args = 0
+ 775 0000 10B5     		push	{r4, lr}
+ 776              	.LCFI14:
+ 777              		.cfi_def_cfa_offset 8
+ 778              		.cfi_offset 4, -8
+ 779              		.cfi_offset 14, -4
+ 197:Core/Src/nrf24L01.c ****   NRF24L01_CE_LOW();	    
+ 780              		.loc 1 197 3 view .LVU162
+ 781 0002 194C     		ldr	r4, .L53
+ 782 0004 0022     		movs	r2, #0
+ 783 0006 4FF48051 		mov	r1, #4096
+ 784 000a 2046     		mov	r0, r4
+ 785 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 786              	.LVL82:
+ 198:Core/Src/nrf24L01.c ****   NRF24L01_Write_Buf(NRF_WRITE_REG+TX_ADDR,(uint8_t*)TX_ADDRESS,TX_ADR_WIDTH);//写TX节点地址 
+ 787              		.loc 1 198 3 view .LVU163
+ 788 0010 0522     		movs	r2, #5
+ 789 0012 1649     		ldr	r1, .L53+4
+ 790 0014 3020     		movs	r0, #48
+ 791 0016 FFF7FEFF 		bl	NRF24L01_Write_Buf
+ 792              	.LVL83:
+ 199:Core/Src/nrf24L01.c ****   NRF24L01_Write_Buf(NRF_WRITE_REG+RX_ADDR_P0,(uint8_t*)RX_ADDRESS,RX_ADR_WIDTH); //设置TX节点�
+ 793              		.loc 1 199 3 view .LVU164
+ 794 001a 0522     		movs	r2, #5
+ 795 001c 1449     		ldr	r1, .L53+8
+ 796 001e 2A20     		movs	r0, #42
+ 797 0020 FFF7FEFF 		bl	NRF24L01_Write_Buf
+ 798              	.LVL84:
+ 200:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+EN_AA,0x01);     //使能通道0的自动应答    
+ 799              		.loc 1 200 3 view .LVU165
+ 800 0024 0121     		movs	r1, #1
+ 801 0026 2120     		movs	r0, #33
+ 802 0028 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 803              	.LVL85:
+ 201:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+EN_RXADDR,0x01); //使能通道0的接收地址  
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 19
+
+
+ 804              		.loc 1 201 3 view .LVU166
+ 805 002c 0121     		movs	r1, #1
+ 806 002e 2220     		movs	r0, #34
+ 807 0030 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 808              	.LVL86:
+ 202:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+SETUP_RETR,0xff);//设置自动重发间隔时间:4000us + 86us;
+ 809              		.loc 1 202 3 view .LVU167
+ 810 0034 FF21     		movs	r1, #255
+ 811 0036 2420     		movs	r0, #36
+ 812 0038 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 813              	.LVL87:
+ 203:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_CH,40);       //设置RF通道为40
+ 814              		.loc 1 203 3 view .LVU168
+ 815 003c 2821     		movs	r1, #40
+ 816 003e 2520     		movs	r0, #37
+ 817 0040 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 818              	.LVL88:
+ 204:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+RF_SETUP,0x0f);  //设置TX发射参数,0db增益,2Mbps,低噪�
+ 819              		.loc 1 204 3 view .LVU169
+ 820 0044 0F21     		movs	r1, #15
+ 821 0046 2620     		movs	r0, #38
+ 822 0048 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 823              	.LVL89:
+ 205:Core/Src/nrf24L01.c ****   NRF24L01_Write_Reg(NRF_WRITE_REG+CONFIG,0x0e);    //配置基本工作模式的参数;PWR_UP,EN_C
+ 824              		.loc 1 205 3 view .LVU170
+ 825 004c 0E21     		movs	r1, #14
+ 826 004e 2020     		movs	r0, #32
+ 827 0050 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 828              	.LVL90:
+ 206:Core/Src/nrf24L01.c ****   NRF24L01_CE_HIGH();//CE为高,10us后启动发送
+ 829              		.loc 1 206 3 view .LVU171
+ 830 0054 0122     		movs	r2, #1
+ 831 0056 4FF48051 		mov	r1, #4096
+ 832 005a 2046     		mov	r0, r4
+ 833 005c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 834              	.LVL91:
+ 207:Core/Src/nrf24L01.c ****   HAL_Delay(1);
+ 835              		.loc 1 207 3 view .LVU172
+ 836 0060 0120     		movs	r0, #1
+ 837 0062 FFF7FEFF 		bl	HAL_Delay
+ 838              	.LVL92:
+ 208:Core/Src/nrf24L01.c **** }
+ 839              		.loc 1 208 1 is_stmt 0 view .LVU173
+ 840 0066 10BD     		pop	{r4, pc}
+ 841              	.L54:
+ 842              		.align	2
+ 843              	.L53:
+ 844 0068 000C0140 		.word	1073810432
+ 845 006c 00000000 		.word	.LANCHOR1
+ 846 0070 00000000 		.word	.LANCHOR0
+ 847              		.cfi_endproc
+ 848              	.LFE74:
+ 850              		.section	.text.NRF_LowPower_Mode,"ax",%progbits
+ 851              		.align	1
+ 852              		.global	NRF_LowPower_Mode
+ 853              		.syntax unified
+ 854              		.thumb
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 20
+
+
+ 855              		.thumb_func
+ 856              		.fpu softvfp
+ 858              	NRF_LowPower_Mode:
+ 859              	.LFB75:
+ 209:Core/Src/nrf24L01.c ****  
+ 210:Core/Src/nrf24L01.c **** /**
+ 211:Core/Src/nrf24L01.c ****   * 函数功能: 该函数NRF24L01进入低功耗模式
+ 212:Core/Src/nrf24L01.c ****   * 输入参数: 无
+ 213:Core/Src/nrf24L01.c ****   * 返 回 值: 无
+ 214:Core/Src/nrf24L01.c ****   * 说    明：无
+ 215:Core/Src/nrf24L01.c ****   *           
+ 216:Core/Src/nrf24L01.c ****   */
+ 217:Core/Src/nrf24L01.c **** void NRF_LowPower_Mode(void)
+ 218:Core/Src/nrf24L01.c **** {
+ 860              		.loc 1 218 1 is_stmt 1 view -0
+ 861              		.cfi_startproc
+ 862              		@ args = 0, pretend = 0, frame = 0
+ 863              		@ frame_needed = 0, uses_anonymous_args = 0
+ 864 0000 08B5     		push	{r3, lr}
+ 865              	.LCFI15:
+ 866              		.cfi_def_cfa_offset 8
+ 867              		.cfi_offset 3, -8
+ 868              		.cfi_offset 14, -4
+ 219:Core/Src/nrf24L01.c **** 	NRF24L01_CE_LOW();	 
+ 869              		.loc 1 219 2 view .LVU175
+ 870 0002 0022     		movs	r2, #0
+ 871 0004 4FF48051 		mov	r1, #4096
+ 872 0008 0348     		ldr	r0, .L57
+ 873 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 874              	.LVL93:
+ 220:Core/Src/nrf24L01.c **** 	NRF24L01_Write_Reg(NRF_WRITE_REG+CONFIG, 0x00);		//配置工作模式:掉电模式
+ 875              		.loc 1 220 2 view .LVU176
+ 876 000e 0021     		movs	r1, #0
+ 877 0010 2020     		movs	r0, #32
+ 878 0012 FFF7FEFF 		bl	NRF24L01_Write_Reg
+ 879              	.LVL94:
+ 221:Core/Src/nrf24L01.c **** }
+ 880              		.loc 1 221 1 is_stmt 0 view .LVU177
+ 881 0016 08BD     		pop	{r3, pc}
+ 882              	.L58:
+ 883              		.align	2
+ 884              	.L57:
+ 885 0018 000C0140 		.word	1073810432
+ 886              		.cfi_endproc
+ 887              	.LFE75:
+ 889              		.global	RX_ADDRESS
+ 890              		.global	TX_ADDRESS
+ 891              		.section	.rodata.RX_ADDRESS,"a"
+ 892              		.align	2
+ 893              		.set	.LANCHOR0,. + 0
+ 896              	RX_ADDRESS:
+ 897 0000 34431010 		.ascii	"4C\020\020\001"
+ 897      01
+ 898              		.section	.rodata.TX_ADDRESS,"a"
+ 899              		.align	2
+ 900              		.set	.LANCHOR1,. + 0
+ 903              	TX_ADDRESS:
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 21
+
+
+ 904 0000 34431010 		.ascii	"4C\020\020\001"
+ 904      01
+ 905              		.text
+ 906              	.Letext0:
+ 907              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 908              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.07\\arm-none-eabi\\include\\
+ 909              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 910              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 911              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 912              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 913              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+ 914              		.file 9 "Core/Inc/spi.h"
+ 915              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 nrf24L01.c
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:16     .text.SPIx_ReadWriteByte:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:24     .text.SPIx_ReadWriteByte:00000000 SPIx_ReadWriteByte
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:73     .text.NRF24L01_Write_Reg:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:80     .text.NRF24L01_Write_Reg:00000000 NRF24L01_Write_Reg
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:140    .text.NRF24L01_Write_Reg:00000034 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:146    .text.NRF24L01_Read_Reg:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:153    .text.NRF24L01_Read_Reg:00000000 NRF24L01_Read_Reg
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:208    .text.NRF24L01_Read_Reg:00000034 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:214    .text.NRF24L01_Read_Buf:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:221    .text.NRF24L01_Read_Buf:00000000 NRF24L01_Read_Buf
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:304    .text.NRF24L01_Read_Buf:00000040 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:310    .text.NRF24L01_Write_Buf:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:317    .text.NRF24L01_Write_Buf:00000000 NRF24L01_Write_Buf
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:400    .text.NRF24L01_Write_Buf:00000040 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:406    .rodata.NRF24L01_Check.str1.4:00000000 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:410    .text.NRF24L01_Check:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:417    .text.NRF24L01_Check:00000000 NRF24L01_Check
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:499    .text.NRF24L01_Check:00000050 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:504    .text.NRF24L01_TxPacket:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:511    .text.NRF24L01_TxPacket:00000000 NRF24L01_TxPacket
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:605    .text.NRF24L01_TxPacket:00000064 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:610    .text.NRF24L01_RxPacket:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:617    .text.NRF24L01_RxPacket:00000000 NRF24L01_RxPacket
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:680    .text.NRF24L01_RX_Mode:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:687    .text.NRF24L01_RX_Mode:00000000 NRF24L01_RX_Mode
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:756    .text.NRF24L01_RX_Mode:00000060 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:762    .text.NRF24L01_TX_Mode:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:769    .text.NRF24L01_TX_Mode:00000000 NRF24L01_TX_Mode
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:844    .text.NRF24L01_TX_Mode:00000068 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:851    .text.NRF_LowPower_Mode:00000000 $t
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:858    .text.NRF_LowPower_Mode:00000000 NRF_LowPower_Mode
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:885    .text.NRF_LowPower_Mode:00000018 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:896    .rodata.RX_ADDRESS:00000000 RX_ADDRESS
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:903    .rodata.TX_ADDRESS:00000000 TX_ADDRESS
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:892    .rodata.RX_ADDRESS:00000000 $d
+C:\Users\lenovo\AppData\Local\Temp\ccscIBNj.s:899    .rodata.TX_ADDRESS:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_SPI_TransmitReceive
+HAL_GPIO_WritePin
+hspi1
+HAL_GPIO_ReadPin
+HAL_Delay
